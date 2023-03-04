@@ -23,38 +23,81 @@ class CountriesTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        /*var count = 0;
+        var continent = ""
+
+        for country in countries {
+          if(continent != country.continent){
+            continent = country.continent
+            count += 1
+          }
+        }*/
+        return countries.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return countries.count
+        //let groupByCountry : [String:[Country]] = Dictionary(grouping: countries, by: { $0.continent })
+        /*if section == 0 {
+            return (groupByCountry["Europe"]?.count)!
+        }
+        if section == 1 {
+            return (groupByCountry["Amerique"]?.count)!
+        }
+        
+        return 0*/
+        return countries[section].count
     }
-
     
+  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryCell", for: indexPath)
-                    
-            let country = countries[indexPath.row]
-            cell.textLabel?.text = country.name
-            cell.detailTextLabel?.text = country.isoCode
+        // groupByCountry : [String:[Country]] = Dictionary(grouping: countries, by: { $0.continent })
         
-        let image = UIImage(named: country.isoCode)
+        cell.textLabel?.text = countries[indexPath.section][indexPath.row].name
+        cell.detailTextLabel?.text = countries[indexPath.section][indexPath.row].isoCode
+        cell.detailTextLabel?.textColor = UIColor.gray
+        let image = UIImage(named: countries[indexPath.section][indexPath.row].isoCode)
+        cell.imageView?.image = image            /*if indexPath.section == 0{
+            let country = groupByCountry["Europe"]?[indexPath.row]
+            cell.textLabel?.text = country!.name
+            cell.detailTextLabel?.text = country!.isoCode
+            cell.detailTextLabel?.textColor = UIColor.gray
+            let image = UIImage(named: country!.isoCode)
+            let image = UIImage(named: country!.isoCode)
+            cell.imageView?.image = image
+        }
         
-        cell.imageView?.image = image
-            return cell
+        if indexPath.section == 1{
+            let country = groupByCountry["Amerique"]?[indexPath.row]
+            cell.textLabel?.text = country!.name
+            cell.detailTextLabel?.text = country!.isoCode
+            cell.detailTextLabel?.textColor = UIColor.gray
+            let image = UIImage(named: country!.isoCode)
+            let image = UIImage(named: country!.isoCode)
+            cell.imageView?.image = image
+        }*/
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
-                                section: Int) -> String? {
-       return "Les pays"
-    }    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+                            section: Int) -> String? {
+        /*if(section == 0)  {
+         return "Europe"
+         }
+         if(section == 1){
+         return "Amerique"
+         }*/
+        return countries[section][0].continent
     }
-    */
+    
+    // Override to support conditional editing of the table view.
+    /*override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        return true
+    }*/
+    
 
     /*
     // Override to support editing the table view.
